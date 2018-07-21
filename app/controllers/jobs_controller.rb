@@ -16,7 +16,11 @@ class JobsController < ApplicationController
 
   # POST /jobs
   def create
-    @job = Job.new(job_params)
+    new_params = job_params
+    new_params.user_id = @current_user.id
+    new_params.title = @current_user.name + ' needs a ride.'
+    new_params.user_complete = false
+    @job = Job.new(new_params)
 
     if @job.save
       render json: @job, status: :created, location: @job
