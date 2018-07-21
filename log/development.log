@@ -1,0 +1,278 @@
+  [1m[35m (15.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (6.7ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5073945470573576205)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20180609204411)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying, "password" character varying, "name" character varying, "image_link" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180609204411"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-06-09 20:50:25.918987"], ["updated_at", "2018-06-09 20:50:25.918987"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(5073945470573576205)[0m
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5073945470573576205)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT pg_advisory_unlock(5073945470573576205)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5073945470573576205)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddDeviseToUsers (20180609210303)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.3ms)[0m  [1m[35mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(5073945470573576205)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5073945470573576205)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to RemoveEmailFromUserInital (20180609210850)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (10.5ms)[0m  [1m[35mALTER TABLE "users" DROP "email"[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180609210850"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5073945470573576205)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5073945470573576205)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddDeviseToUsers (20180609210951)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.5ms)[0m  [1m[35mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (5.1ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" timestamp[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" timestamp[0m
+  [1m[35m (4.0ms)[0m  [1m[35mALTER TABLE "users" ADD "sign_in_count" integer DEFAULT 0 NOT NULL[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_at" timestamp[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_at" timestamp[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_ip" inet[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_ip" inet[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180609210951"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5073945470573576205)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5073945470573576205)[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateJobs (20180609212432)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (16.5ms)[0m  [1m[35mCREATE TABLE "jobs" ("id" bigserial primary key, "title" character varying, "note" character varying, "taken" boolean, "user_complete" boolean, "rider_complete" boolean, "type" character varying, "user_id" integer, "rider_id" integer, "lat" float, "long" float, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180609212432"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateStats (20180609212528)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "stats" ("id" bigserial primary key, "life_t_distance" integer, "life_t_num_jobs" integer, "daily_job_num" integer, "daily_distance" integer, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180609212528"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(5073945470573576205)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5073945470573576205)[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddTypeToUers (20180609220955)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" ADD "type" character varying[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180609220955"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5073945470573576205)[0m
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/user/login" for 127.0.0.1 at 2018-06-09 18:44:19 -0400
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthenticationController#create as */*
+  Parameters: {"email"=>"admin@interapthq.com", "password"=>"[FILTERED]", "authentication"=>{"email"=>"admin@interapthq.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "admin@interapthq.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.63ms)
+Completed 401 Unauthorized in 24ms (Views: 8.3ms | ActiveRecord: 10.7ms)
+
+
+Started POST "/users/" for 127.0.0.1 at 2018-06-09 18:51:57 -0400
+Processing by Devise::RegistrationsController#create as */*
+  Parameters: {"email"=>"alex.hughes@interapt.com", "name"=>"alex", "password"=>"[FILTERED]", "type"=>"rider", "registration"=>{"email"=>"alex.hughes@interapt.com", "name"=>"alex", "password"=>"[FILTERED]", "type"=>"rider"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 200 OK in 42ms (Views: 0.1ms | ActiveRecord: 5.3ms)
+
+
+Started GET "/users/" for 127.0.0.1 at 2018-06-09 18:53:19 -0400
+Processing by UsersController#index as */*
+  Parameters: {"user"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.14ms)
+Completed 200 OK in 26ms (Views: 24.8ms | ActiveRecord: 3.6ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2018-06-09 18:54:00 -0400
+Processing by Devise::RegistrationsController#create as */*
+  Parameters: {"email"=>"alex.hughes@interapt.com", "name"=>"alex", "password"=>"[FILTERED]", "type"=>"rider", "registration"=>{"email"=>"alex.hughes@interapt.com", "name"=>"alex", "password"=>"[FILTERED]", "type"=>"rider"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 200 OK in 19ms (Views: 0.1ms | ActiveRecord: 2.3ms)
+
+
+Started POST "/user" for 127.0.0.1 at 2018-06-09 18:57:04 -0400
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"alex.hughes@interapt.com", "name"=>"alex", "password"=>"[FILTERED]", "type"=>"rider", "user"=>{"password"=>"[FILTERED]", "name"=>"alex", "email"=>"alex.hughes@interapt.com", "type"=>"rider"}}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 3.0ms)
+
+
+  
+ActiveRecord::SubclassNotFound (The single-table inheritance mechanism failed to locate the subclass: 'rider'. This error is raised because the column 'type' is reserved for storing the class in case of inheritance. Please rename this column if you didn't intend it to be used for storing the inheritance class or overwrite User.inheritance_column to use another column for that information.):
+  
+app/controllers/users_controller.rb:19:in `create'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5073945470573576205)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeUserTypeColumn (20180609225928)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "users" DROP "type"[0m
+  [1m[35m (4.1ms)[0m  [1m[35mALTER TABLE "users" ADD "account_type" character varying[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180609225928"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5073945470573576205)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/user" for 127.0.0.1 at 2018-06-09 19:02:10 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"alex.hughes@interapt.com", "name"=>"alex", "password"=>"[FILTERED]", "account_type"=>"rider", "user"=>{"password"=>"[FILTERED]", "name"=>"alex", "email"=>"alex.hughes@interapt.com", "account_type"=>"rider"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "alex.hughes@interapt.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at", "email", "encrypted_password", "account_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "alex"], ["created_at", "2018-06-09 23:02:10.939886"], ["updated_at", "2018-06-09 23:02:10.939886"], ["email", "alex.hughes@interapt.com"], ["encrypted_password", "$2a$11$k/99y1IIUb.9fZVQpD33aOFnukJR7ou1yzkWggdOS/FmnKuh2w3Va"], ["account_type", "rider"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mJob Load (3.8ms)[0m  [1m[34mSELECT "jobs".* FROM "jobs" WHERE "jobs"."user_id" = $1[0m  [["user_id", 1]]
+[active_model_serializers]   [1m[36mStat Load (0.8ms)[0m  [1m[34mSELECT  "stats".* FROM "stats" WHERE "stats"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (47.06ms)
+Completed 201 Created in 223ms (Views: 61.4ms | ActiveRecord: 16.1ms)
+
+
+Started POST "/user" for 127.0.0.1 at 2018-06-09 19:02:44 -0400
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"alex.hughes@interapt.com", "name"=>"alex", "password"=>"[FILTERED]", "account_type"=>"rider", "user"=>{"password"=>"[FILTERED]", "name"=>"alex", "email"=>"alex.hughes@interapt.com", "account_type"=>"rider"}}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "alex.hughes@interapt.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with ActiveModel::Errors (0.13ms)
+Completed 422 Unprocessable Entity in 169ms (Views: 7.9ms | ActiveRecord: 6.3ms)
+
+
+Started POST "/user" for 127.0.0.1 at 2018-06-09 19:02:57 -0400
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"alex.hughes+01@interapt.com", "name"=>"al", "password"=>"[FILTERED]", "account_type"=>"rider", "user"=>{"password"=>"[FILTERED]", "name"=>"al", "email"=>"alex.hughes+01@interapt.com", "account_type"=>"rider"}}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "alex.hughes+01@interapt.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at", "email", "encrypted_password", "account_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "al"], ["created_at", "2018-06-09 23:02:57.976653"], ["updated_at", "2018-06-09 23:02:57.976653"], ["email", "alex.hughes+01@interapt.com"], ["encrypted_password", "$2a$11$khgMh91AGmzrXJVPLIUxkOjnKZOfNFo5j5bQivrZywj9an/1rErxa"], ["account_type", "rider"]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mJob Load (0.4ms)[0m  [1m[34mSELECT "jobs".* FROM "jobs" WHERE "jobs"."user_id" = $1[0m  [["user_id", 2]]
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (38.36ms)
+Completed 500 Internal Server Error in 180ms (ActiveRecord: 5.5ms)
+
+
+  
+NoMethodError (undefined method `stats' for #<User:0x00007f81429726b8>
+Did you mean?  stat
+               stat=):
+  
+app/controllers/users_controller.rb:22:in `create'
+Started GET "/users" for 127.0.0.1 at 2018-06-09 19:03:45 -0400
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as */*
+  Parameters: {"user"=>{}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+[active_model_serializers]   [1m[36mJob Load (0.3ms)[0m  [1m[34mSELECT "jobs".* FROM "jobs" WHERE "jobs"."user_id" = $1[0m  [["user_id", 1]]
+[active_model_serializers]   [1m[36mStat Load (0.3ms)[0m  [1m[34mSELECT  "stats".* FROM "stats" WHERE "stats"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mJob Load (0.3ms)[0m  [1m[34mSELECT "jobs".* FROM "jobs" WHERE "jobs"."user_id" = $1[0m  [["user_id", 2]]
+[active_model_serializers]   [1m[36mStat Load (0.2ms)[0m  [1m[34mSELECT  "stats".* FROM "stats" WHERE "stats"."user_id" = $1 LIMIT $2[0m  [["user_id", 2], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (46.01ms)
+Completed 200 OK in 91ms (Views: 82.8ms | ActiveRecord: 10.8ms)
+
+
+Started POST "/user/login" for 127.0.0.1 at 2018-06-09 19:04:36 -0400
+Processing by AuthenticationController#create as */*
+  Parameters: {"email"=>"alex.hughes@interapt.com", "password"=>"[FILTERED]", "authentication"=>{"email"=>"alex.hughes@interapt.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "alex.hughes@interapt.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 401 Unauthorized in 132ms (Views: 6.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/user/login" for 127.0.0.1 at 2018-06-09 19:05:08 -0400
+Processing by AuthenticationController#create as */*
+  Parameters: {"email"=>"alex.hughes@interapt.com", "password"=>"[FILTERED]", "authentication"=>{"email"=>"alex.hughes@interapt.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "alex.hughes@interapt.com"], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 125ms (ActiveRecord: 1.7ms)
+
+
+  
+NoMethodError (undefined method `type' for #<User:0x00007fda2ccc32c0>):
+  
+app/controllers/authentication_controller.rb:8:in `create'
+Started POST "/user/login" for 127.0.0.1 at 2018-06-09 19:05:50 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AuthenticationController#create as */*
+  Parameters: {"email"=>"alex.hughes@interapt.com", "password"=>"[FILTERED]", "authentication"=>{"email"=>"alex.hughes@interapt.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "alex.hughes@interapt.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 156ms (Views: 7.0ms | ActiveRecord: 5.2ms)
+
+
+Started POST "/user/login" for 127.0.0.1 at 2018-06-09 19:06:25 -0400
+Processing by AuthenticationController#create as */*
+  Parameters: {"email"=>"alex.hughes@interapt.com", "password"=>"[FILTERED]", "authentication"=>{"email"=>"alex.hughes@interapt.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "alex.hughes@interapt.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 200 OK in 150ms (Views: 2.6ms | ActiveRecord: 4.1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2018-06-09 19:12:45 -0400
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as */*
+  Parameters: {"user"=>{}}
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.18ms)
+Filter chain halted as :authenticate_token! rendered or redirected
+Completed 401 Unauthorized in 13ms (Views: 10.4ms | ActiveRecord: 2.9ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2018-06-09 19:12:57 -0400
+Processing by UsersController#index as */*
+  Parameters: {"user"=>{}}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+[active_model_serializers]   [1m[36mJob Load (0.5ms)[0m  [1m[34mSELECT "jobs".* FROM "jobs" WHERE "jobs"."user_id" = $1[0m  [["user_id", 1]]
+[active_model_serializers]   [1m[36mStat Load (0.5ms)[0m  [1m[34mSELECT  "stats".* FROM "stats" WHERE "stats"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mJob Load (0.4ms)[0m  [1m[34mSELECT "jobs".* FROM "jobs" WHERE "jobs"."user_id" = $1[0m  [["user_id", 2]]
+[active_model_serializers]   [1m[36mStat Load (0.2ms)[0m  [1m[34mSELECT  "stats".* FROM "stats" WHERE "stats"."user_id" = $1 LIMIT $2[0m  [["user_id", 2], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (51.31ms)
+Completed 200 OK in 97ms (Views: 63.9ms | ActiveRecord: 11.2ms)
+
+
+  [1m[35m (7.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5073945470573576205)[0m
+  [1m[35m (3.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to ChangeJobColumns (20180720231209)
+  [1m[35m (6.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (12.2ms)[0m  [1m[35mALTER TABLE "jobs" ADD "rider_lat" float[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "jobs" ADD "rider_long" float[0m
+  [1m[35m (10.4ms)[0m  [1m[35mALTER TABLE "jobs" DROP "type"[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180720231209"]]
+  [1m[35m (6.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.7ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(5073945470573576205)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
