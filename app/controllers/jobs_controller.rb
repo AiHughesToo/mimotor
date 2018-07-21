@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :update, :destroy]
-  before_action :authenticate_token!, except: [:create]
+  before_action :authenticate_token!
 
   # GET /jobs
   def index
