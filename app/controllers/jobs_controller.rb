@@ -16,9 +16,9 @@ class JobsController < ApplicationController
 
   # POST /jobs
   def create
-
+    # set the user id and name for the title by the current user.
     @job = Job.new(user_id: @current_user.id, title: @current_user.name,
-                   lat: params[:lat], long: params[:long], user_complete: false)
+                   lat: params[:lat], long: params[:long], note: params[:note], user_complete: false)
 
     if @job.save
       render json: @job, status: :created, location: @job
