@@ -14,6 +14,14 @@ class JobsController < ApplicationController
     render json: @job
   end
 
+  # POST show list of jobs close to rider.
+  def local_jobs_list_rider
+    # set rider
+    # set rider position
+    # lookup all jobs within the range variable
+    # return list of jobs.
+  end
+
   # POST /jobs
   def create
     # set the user id and name for the title by the current user.
