@@ -23,6 +23,7 @@ class JobsController < ApplicationController
     # lookup all jobs within the range variable
     @jobs = Job.near([lat, long], params[:range], :order => :distance)
     # return list of jobs.
+    render json: @jobs
   end
 
   # POST /jobs
