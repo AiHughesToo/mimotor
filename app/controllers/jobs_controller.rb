@@ -18,7 +18,10 @@ class JobsController < ApplicationController
   def local_jobs_list_rider
     # set rider
     # set rider position
+    lat =  params[:rider_lat]
+    long = params[:rider_long]
     # lookup all jobs within the range variable
+    @jobs = Job.near([lat, long], params[:range], :order => :distance)
     # return list of jobs.
   end
 
@@ -59,6 +62,7 @@ class JobsController < ApplicationController
     def job_params
       params.require(:job).permit(:title, :note, :taken, :user_complete,
                                   :rider_complete, :user_id, :rider_id,
-                                  :latitude, :longitude, :rider_lat, :rider_long)
+                                  :latitude, :longitude, :rider_lat,
+                                  :rider_long, :range)
     end
 end
