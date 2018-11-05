@@ -13,4 +13,5 @@ Rails.application.routes.draw do
 
   #jobs
   post 'make/job' => 'jobs#create'
+  post 'rider_job_list' => 'jobs#local_jobs_list_rider'
 end
