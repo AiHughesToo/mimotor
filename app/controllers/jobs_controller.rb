@@ -16,12 +16,8 @@ class JobsController < ApplicationController
 
   # POST show list of jobs close to rider.
   def local_jobs_list_rider
-    # set rider
-    # set rider position
-    lat =  params[:rider_lat]
-    long = params[:rider_long]
     # lookup all jobs within the range variable
-    @jobs = Job.where(taken: null).within(params[:range], :units => :miles, :origin => [lat, long])
+    @jobs = Job.where(taken: false).within(params[:range], :units => :miles, :origin => [params[:rider_lat], params[:rider_long]])
     # return list of jobs.
     render json: @jobs
   end
