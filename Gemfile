@@ -31,7 +31,7 @@ gem 'jwt'
 gem 'aws-sdk', '~> 2'
 
 #geo coors
-gem 'geocoder'
+gem 'geokit-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

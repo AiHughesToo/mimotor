@@ -21,7 +21,7 @@ class JobsController < ApplicationController
     lat =  params[:rider_lat]
     long = params[:rider_long]
     # lookup all jobs within the range variable
-    @jobs = Job.near([lat, long], params[:range], :order => :distance)
+    @jobs = Job.within(params[:range], :units => :miles, :origin => [lat, long])
     # return list of jobs.
     render json: @jobs
   end
