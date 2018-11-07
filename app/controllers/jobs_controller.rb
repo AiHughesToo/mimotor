@@ -18,6 +18,7 @@ class JobsController < ApplicationController
   def local_jobs_list_rider
     # lookup all jobs within the range variable
     @jobs = Job.where(taken: false).within(params[:range], :units => :miles, :origin => [params[:rider_lat], params[:rider_long]])
+    p @jobs.size
     # return list of jobs.
     render json: @jobs
   end
@@ -26,8 +27,8 @@ class JobsController < ApplicationController
   def create
     # set the user id and name for the title by the current user.
     @job = Job.new(user_id: @current_user.id, title: @current_user.name,
-                   latitude: params[:latitude], longitude: params[:longitude], taken: false,
-                   note: params[:note], user_complete: false)
+                   latitude: params[:latitude], longitude: params[:longitude],
+                   taken: false, note: params[:note], user_complete: false)
 
     if @job.save
       render json: @job, status: :created, location: @job
