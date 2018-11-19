@@ -18,7 +18,6 @@ class JobsController < ApplicationController
   def local_jobs_list_rider
     # lookup all jobs within the range variable
     @jobs = Job.where(taken: false).within(params[:range], :units => :miles, :origin => [params[:rider_lat], params[:rider_long]])
-    p @jobs.size
     # return list of jobs.
     render json: @jobs
   end
@@ -37,6 +36,21 @@ class JobsController < ApplicationController
     end
   end
 
+  # Patch/put jobs/ID   take a job if it is available.
+  # before action will set the job from the id.
+  def take_job
+    # we check to see if someone beet us to the job
+    if @job.taken
+      message = {message: 'This job has been taken by another rider.'}
+      render json: message
+    end
+    # looks like we are good to go set the rider location and id and take the job
+    @job.taken = true
+    @job.update(rider_id: params[:rider_id], rider_lat: params[:rider_lat],
+                rider_long: params[:rider_long], taken: true)
+    #retrun the whole job object so we can populate the job map screen.
+    render json: @job
+  end
   # PATCH/PUT /jobs/1
   def update
     if @job.update(job_params)
