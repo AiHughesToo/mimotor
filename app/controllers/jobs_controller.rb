@@ -43,14 +43,16 @@ class JobsController < ApplicationController
     if @job.taken
       message = { message: 'This job has been taken by another rider.' }
       render json: message
+    else
+      # looks like we are good to go set the rider location and id and take the job
+      @job.taken = true
+      @job.update(rider_id: @current_user.id, rider_lat: params[:rider_lat],
+                  rider_long: params[:rider_long], taken: true)
+      # return the whole job object so we can populate the job map screen.
+      render json: @job
     end
-    # looks like we are good to go set the rider location and id and take the job
-    @job.taken = true
-    @job.update(rider_id: @current_user.id, rider_lat: params[:rider_lat],
-                rider_long: params[:rider_long], taken: true)
-    #retrun the whole job object so we can populate the job map screen.
-    render json: @job
   end
+
   # PATCH/PUT /jobs/1
   def update
     if @job.update(job_params)
