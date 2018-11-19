@@ -82,7 +82,7 @@ class JobsController < ApplicationController
   # DELETE /jobs/1 cancel an open job before a rider takes it
   def destroy
     unless @job.taken
-      @job.update(taken: null, user_complete: true)
+      @job.update(taken: true, user_complete: true)
     end
   end
 
