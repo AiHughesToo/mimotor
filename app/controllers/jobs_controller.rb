@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :update, :destroy]
+  before_action :set_job, only: [:show, :update, :take_job, :destroy]
   before_action :authenticate_token!
 
   # GET /jobs
@@ -41,12 +41,12 @@ class JobsController < ApplicationController
   def take_job
     # we check to see if someone beet us to the job
     if @job.taken
-      message = {message: 'This job has been taken by another rider.'}
+      message = { message: 'This job has been taken by another rider.' }
       render json: message
     end
     # looks like we are good to go set the rider location and id and take the job
     @job.taken = true
-    @job.update(rider_id: params[:rider_id], rider_lat: params[:rider_lat],
+    @job.update(rider_id: @current_user.id, rider_lat: params[:rider_lat],
                 rider_long: params[:rider_long], taken: true)
     #retrun the whole job object so we can populate the job map screen.
     render json: @job
