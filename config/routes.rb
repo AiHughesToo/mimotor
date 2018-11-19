@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   post 'make/job' => 'jobs#create'
   post 'rider_job_list' => 'jobs#local_jobs_list_rider'
   put  'take/job/:id' => 'jobs#take_job'
+  get 'check_open/job' => 'jobs#check_open_jobs'
 end

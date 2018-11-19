@@ -22,12 +22,29 @@ class JobsController < ApplicationController
     render json: @jobs
   end
 
+  # check that user does not have open jobs if so
+  # return that job information and set the screen to show
+  def check_open_jobs
+    if @current_user.account_type == 'rider'
+      job = Job.where(rider_id: @current_USER.id, rider_complete: false)
+    else
+      job = Job.where(user_id: @current_user, user_complete: false)
+    end
+    if job.empty?
+      message = { message: false }
+      render json: message
+    else
+      render json: job[0]
+    end
+  end
+
   # POST /jobs
   def create
     # set the user id and name for the title by the current user.
     @job = Job.new(user_id: @current_user.id, title: @current_user.name,
                    latitude: params[:latitude], longitude: params[:longitude],
-                   taken: false, note: params[:note], user_complete: false)
+                   taken: false, note: params[:note], user_complete: false,
+                   rider_complete: false)
 
     if @job.save
       render json: @job, status: :created, location: @job
