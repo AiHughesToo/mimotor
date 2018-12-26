@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :update, :take_job, :destroy]
+  before_action :set_job, only: [:show, :update, :take_job,
+                                 :rider_complete, :destroy]
   before_action :authenticate_token!
 
   # GET /jobs
@@ -51,6 +52,14 @@ class JobsController < ApplicationController
     else
       render json: @job.errors, status: :unprocessable_entity
     end
+  end
+
+  # Patch/put jobs/ID   Rider marks the job complete so he can get another.
+  # before action will set the job from the id.
+  def rider_complete
+    @job.update(rider_complete: true)
+
+    render json: @job
   end
 
   # Patch/put jobs/ID   take a job if it is available.
