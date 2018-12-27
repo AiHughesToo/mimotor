@@ -27,7 +27,7 @@ class JobsController < ApplicationController
   # return that job information and set the screen to show
   def check_open_jobs
     if @current_user.account_type == 'rider'
-      job = Job.where(rider_id: @current_USER.id, rider_complete: false)
+      job = Job.where(rider_id: @current_user.id, rider_complete: false)
     else
       job = Job.where(user_id: @current_user, user_complete: false)
     end
