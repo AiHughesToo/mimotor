@@ -58,7 +58,7 @@ class JobsController < ApplicationController
   # before action will set the job from the id.
   def rider_complete
     @job.update(rider_complete: true)
-
+      # we need to start adding in the update to the stats.
     render json: @job
   end
 
@@ -72,7 +72,7 @@ class JobsController < ApplicationController
     else
       # looks like we are good to go set the rider location and id and take the job
       @job.taken = true
-      @job.update(rider_id: @current_user.id, rider_lat: params[:rider_lat],
+      @job.update(rider_id: @current_user.id, rider_name: @current_user.name, rider_lat: params[:rider_lat],
                   rider_long: params[:rider_long], taken: true)
       # return the whole job object so we can populate the job map screen.
       render json: @job
