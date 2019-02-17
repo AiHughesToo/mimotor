@@ -62,7 +62,7 @@ class JobsController < ApplicationController
      @job.update(rider_complete: true)
       # we need to start adding in the update to the stats.
     else
-      @job.update(user_complete: true)
+      @job.update(user_complete: true, taken: true)
     end
     render json: @job
   end
