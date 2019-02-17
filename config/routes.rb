@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   post 'rider_job_list' => 'jobs#local_jobs_list_rider'
   put  'take/job/:id' => 'jobs#take_job'
   put  'job/complete/:id' => 'jobs#job_complete'
+  put  'job/cancel/:id' => 'jobs#job_cancel'
   get  'check_open/job' => 'jobs#check_open_jobs'
 end

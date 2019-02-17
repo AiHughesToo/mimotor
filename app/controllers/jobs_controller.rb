@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :update, :take_job,
-                                 :job_complete, :destroy]
+                                 :job_complete, :destroy, :job_cancel]
   before_action :authenticate_token!
 
   # GET /jobs
@@ -82,6 +82,11 @@ class JobsController < ApplicationController
       # return the whole job object so we can populate the job map screen.
       render json: @job
     end
+  end
+
+  def job_cancel
+    @job.update(taken: true, rider_complete: false, user_complete: true)
+    render json: @job
   end
 
   # PATCH/PUT /jobs/1
