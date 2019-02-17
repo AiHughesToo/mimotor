@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   put  'job/complete/:id' => 'jobs#job_complete'
   put  'job/cancel/:id' => 'jobs#job_cancel'
   get  'check_open/job' => 'jobs#check_open_jobs'
+  get  'job/:id' => 'jobs#show'
 end
