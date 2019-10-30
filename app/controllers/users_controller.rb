@@ -27,6 +27,8 @@ class UsersController < ApplicationController
 
   def reset_password
     user = User.find_by_email(user_params[:email])
+    user.send_reset_password_instructions
+    head :no_content
     render json: user
   end
 
