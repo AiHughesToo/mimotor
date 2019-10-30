@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_token!, except: [:create]
+  before_action :authenticate_token!, except: [:create, :password_reset]
 
   # GET /users
   def index
     @users = User.all
-
     render json: @users
   end
 
@@ -37,6 +36,16 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+  end
+
+  # RESET password 
+  def password_reset
+    unless(user = User.find_by_email(user_params[:email])).nil?
+      user.send_reset_password_instructions
+      head :no_content
+    else
+      render json: {errors: 'You have not been found.'}, status: :unprocessable_entity
+    end
   end
 
   private
