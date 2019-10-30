@@ -25,6 +25,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def reset_password
+    user = User.find_by_email(user_params[:email])
+    render json: user
+  end
+
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)

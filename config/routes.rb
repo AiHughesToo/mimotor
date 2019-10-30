@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   #users
   post 'user' => 'users#create'
+  post 'reset_password' => 'users#reset_password'
 
   #jobs
   post 'make/job' => 'jobs#create'
