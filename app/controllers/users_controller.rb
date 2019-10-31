@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     p rpToken
     UserMailer.reset_password_email(user).deliver_now
     #user.send_reset_password_instructions
-    head :no_content
+    # head :no_content
     # render json: user
   end
 
