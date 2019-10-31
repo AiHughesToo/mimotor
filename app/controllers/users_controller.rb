@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
-
     render json: @users
   end
 
@@ -27,8 +26,10 @@ class UsersController < ApplicationController
 
   def reset_password
     user = User.find_by_email(user_params[:email])
+    UserMailer.password_reset_email(user)
     user.send_reset_password_instructions
     head :no_content
+
     render json: user
   end
 
