@@ -27,11 +27,10 @@ class UsersController < ApplicationController
   def reset_password
     user = User.find_by_email(user_params[:email])
 
-    UserMailer.password_reset_email(user).deliver_now
+    UserMailer.reset_password_email(user).deliver_now
     user.send_reset_password_instructions
     head :no_content
-
-    render json: user
+    # render json: user
   end
 
   # PATCH/PUT /users/1
