@@ -26,11 +26,13 @@ class UsersController < ApplicationController
 
   def reset_password
     user = User.find_by_email(user_params[:email])
-    rpToken = Devise.token_generator.generate(User, :reset_password_token)
-    p 'The toke is here *******************************'
-    p rpToken
-    UserMailer.reset_password_email(user, rpToken).deliver_now
-    #user.send_reset_password_instructions
+    rp_token = Devise.token_generator.generate(User, :reset_password_token)
+    p 'The token is here *******************************'
+    p rp_token
+    p rp_token[0]
+    # user.reset_password_token = rpToken[0]
+    UserMailer.reset_password_email(user, rp_token).deliver_now
+    # user.send_reset_password_instructions
     # head :no_content
     # render json: user
   end
