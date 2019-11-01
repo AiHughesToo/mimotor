@@ -30,6 +30,8 @@ class UsersController < ApplicationController
     p 'The token is here *******************************'
     p rp_token
     p rp_token[0]
+    decoded_token = Devise.token_generator.digest(self, :reset_password_token, rp_token[0])
+    p decoded_token
     # user.reset_password_token = rpToken[0]
     UserMailer.reset_password_email(user, rp_token).deliver_now
     # user.send_reset_password_instructions
