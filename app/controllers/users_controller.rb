@@ -27,10 +27,6 @@ class UsersController < ApplicationController
   def reset_password
     user = User.find_by_email(user_params[:email])
     rp_token = Devise.token_generator.generate(User, :reset_password_token)
-    p rp_token
-    p rp_token[0]
-    decoded_token = Devise.token_generator.digest(self, :reset_password_token, rp_token[0])
-    p decoded_token
 
     user.reset_password_token = rp_token[1]
     user.reset_password_sent_at = Time.now.utc
