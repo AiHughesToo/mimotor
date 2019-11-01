@@ -1,8 +1,9 @@
 
-class PasswordCOntroller < ApplicationController
+class PasswordController < ApplicationController
 
   def set_new_password
     token_reference = Devise.token_generator.digest(self, :reset_password_token, params.require(:token))
+    p params[:token]
     user = User.find_by_reset_password_token(token_reference)
       p user
     if (user && user.save)
