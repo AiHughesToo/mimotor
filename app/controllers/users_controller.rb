@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     decoded_token = Devise.token_generator.digest(self, :reset_password_token, rp_token[0])
     p decoded_token
 
-    user.reset_password_token = rpToken[1]
+    user.reset_password_token = rp_Token[1]
     user.reset_password_sent_at = Time.now.utc
 
     if(user.save)
