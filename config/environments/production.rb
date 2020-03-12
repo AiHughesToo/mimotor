@@ -63,7 +63,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   # Mailer
-  Rails.application.routes.default_url_options[:host] = 'http://aihughes.com'
+  Rails.application.routes.default_url_options[:host] = 'https://memotor-dev.herokuapp.com'
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       address:              'smtp.gmail.com',

@@ -26,11 +26,9 @@ class UsersController < ApplicationController
 
   def reset_password
     user = User.find_by_email(user_params[:email])
-    p "I found the user and this is the info"
-    p user
+
     rp_token = Devise.token_generator.generate(User, :reset_password_token)
-    p "this is the token"
-    p rp_token 
+    
     user.reset_password_token = rp_token[1]
     user.reset_password_sent_at = Time.now.utc
 
