@@ -16,8 +16,11 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-
+    
     if @user.save
+      if @user.account_type == "rider"
+        @user.stat = Stat.new(user_id: @user.id)
+      end
       render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
