@@ -83,7 +83,7 @@ class JobsController < ApplicationController
 
       rider_location = params[:rider_lat].to_s + "," + params[:rider_long].to_s
       p rider_location
-      job_distance = job_location.distance_to(rider_location, miles)
+      job_distance = job_location.distance_to(rider_location)
       p job_distance
         p "**** Job info"
       # return the whole job object so we can populate the job map screen.
