@@ -79,7 +79,7 @@ class JobsController < ApplicationController
       @job.update(rider_id: @current_user.id, rider_name: @current_user.name, rider_lat: params[:rider_lat],
                   rider_long: params[:rider_long], taken: true)
         p "**** Job info"
-      job_location = Geokit:LatLng.new(@job.latitude, @job.longitude)
+      job_location = Geokit::LatLng.new(@job.latitude, @job.longitude)
       rider_location = params[:rider_lat] + "," + params[:rider_long]
       p rider_location
       distance = job_location.distance_to(rider_location, miles)
