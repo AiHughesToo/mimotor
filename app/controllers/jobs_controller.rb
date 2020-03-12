@@ -78,6 +78,8 @@ class JobsController < ApplicationController
       @job.taken = true
       @job.update(rider_id: @current_user.id, rider_name: @current_user.name, rider_lat: params[:rider_lat],
                   rider_long: params[:rider_long], taken: true)
+        p "**** Job info"
+        p @job
       # return the whole job object so we can populate the job map screen.
       render json: @job
     end
