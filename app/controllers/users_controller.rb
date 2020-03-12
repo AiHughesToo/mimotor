@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_token!, except: [:create]
+  before_action :authenticate_token!, except: [:create, :reset_password]
 
   # GET /users
   def index
     @users = User.all
-
     render json: @users
   end
 
@@ -22,6 +21,18 @@ class UsersController < ApplicationController
       render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  def reset_password
+    user = User.find_by_email(user_params[:email])
+    rp_token = Devise.token_generator.generate(User, :reset_password_token)
+
+    user.reset_password_token = rp_token[1]
+    user.reset_password_sent_at = Time.now.utc
+
+    if(user.save)
+      UserMailer.reset_password_email(user, rp_token[0]).deliver_now
     end
   end
 
