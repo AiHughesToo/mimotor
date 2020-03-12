@@ -81,6 +81,7 @@ class JobsController < ApplicationController
 
         rider = User.find(params[:rider_id])
         p rider.name
+        p rider.stat.id
         p "**** Job info"
       job_location = Geokit::LatLng.new(@job.latitude, @job.longitude)
 
