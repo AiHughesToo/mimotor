@@ -78,18 +78,19 @@ class JobsController < ApplicationController
       @job.taken = true
       @job.update(rider_id: @current_user.id, rider_name: @current_user.name, rider_lat: params[:rider_lat],
                   rider_long: params[:rider_long], taken: true)
-
-        rider = User.find(params[:rider_id])
-        p rider.name
-        p rider.stat.id
-        p "**** Job info"
+      p "**** Job info"
+      # set the distance for the job
       job_location = Geokit::LatLng.new(@job.latitude, @job.longitude)
 
       rider_location = params[:rider_lat].to_s + "," + params[:rider_long].to_s
-      p rider_location
+     
       job_distance = job_location.distance_to(rider_location)
-      p job_distance
-        p "**** Job info"
+
+      # find the stat and update it
+      stat = Stat.find_by(user_id: params[:rider_id])
+      stat.life_t_distance = stat.life_t_distance + job_distance
+      p stat.life_t_distance
+      p "**** Job info"
       # return the whole job object so we can populate the job map screen.
       render json: @job
     end
