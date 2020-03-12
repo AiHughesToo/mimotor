@@ -17,7 +17,7 @@ class JobsController < ApplicationController
 
   # POST show list of jobs close to rider.
   def local_jobs_list_rider
-    @jobsAll = Job.all
+    @jobsAll = Job.where(taken: false)
     p @jobsAll
 
     # lookup all jobs within the range variable
