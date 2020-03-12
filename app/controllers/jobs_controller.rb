@@ -87,7 +87,7 @@ class JobsController < ApplicationController
       job_distance = job_location.distance_to(rider_location)
 
       # find the stat and update it
-      stat = Stat.find_by(user_id: params[:rider_id])
+      stat = Stat.find_by(user_id: @current_user.id)
       stat.life_t_distance = stat.life_t_distance + job_distance
       p stat.life_t_distance
       p "**** Job info"
