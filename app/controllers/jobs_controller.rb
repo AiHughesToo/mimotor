@@ -17,9 +17,6 @@ class JobsController < ApplicationController
 
   # POST show list of jobs close to rider.
   def local_jobs_list_rider
-    @jobsAll = Job.where(taken: false)
-    p @jobsAll
-
     # lookup all jobs within the range variable
     @jobs = Job.where(taken: false).within(params[:range], :units => :miles, :origin => [params[:rider_lat], params[:rider_long]])
     # return list of jobs.
@@ -83,7 +80,8 @@ class JobsController < ApplicationController
                   rider_long: params[:rider_long], taken: true)
         p "**** Job info"
       job_location = Geokit::LatLng.new(@job.latitude, @job.longitude)
-      rider_location = params[:rider_lat] + "," + params[:rider_long]
+
+      rider_location = params[:rider_lat].to_s + "," + params[:rider_long].to_s
       p rider_location
       job_distance = job_location.distance_to(rider_location, miles)
       p job_distance
