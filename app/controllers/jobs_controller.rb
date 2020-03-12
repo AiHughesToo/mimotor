@@ -88,6 +88,12 @@ class JobsController < ApplicationController
 
       # find the stat and update it
       stat = Stat.find_by(user_id: @current_user.id)
+      p stat
+
+      if (stat.life_t_distance == nil)
+        stat.life_t_distance = 0
+      end
+      
       stat.life_t_distance = stat.life_t_distance + job_distance
       p stat.life_t_distance
       p "**** Job info"
