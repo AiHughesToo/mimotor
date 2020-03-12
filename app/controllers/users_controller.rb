@@ -22,12 +22,13 @@ class UsersController < ApplicationController
     else
       render json: @user.errors, status: :unprocessable_entity
     end
-  end
+  end 
 
   def reset_password
     user = User.find_by_email(user_params[:email])
+    p user
     rp_token = Devise.token_generator.generate(User, :reset_password_token)
-
+    p rp_token 
     user.reset_password_token = rp_token[1]
     user.reset_password_sent_at = Time.now.utc
 

@@ -18,6 +18,6 @@ class PasswordController < ApplicationController
     else
       render json: {errors: 'Email Not Found'}, status: :unprocessable_entity
     end
-  end
+  end 
 
 end
