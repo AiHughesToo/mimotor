@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     user = User.find_by_email(user_params[:email])
 
     rp_token = Devise.token_generator.generate(User, :reset_password_token)
-    
+
     user.reset_password_token = rp_token[1]
     user.reset_password_sent_at = Time.now.utc
 
@@ -59,6 +59,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:email, :password, :name, :image_link, :account_type)
+      params.require(:user).permit(:email, :password, :name, :image_link, :account_type, :vin_number, :plate_number, :bike_type)
     end
 end
