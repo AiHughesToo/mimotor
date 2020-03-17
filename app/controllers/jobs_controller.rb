@@ -79,29 +79,36 @@ class JobsController < ApplicationController
       @job.update(rider_id: @current_user.id, rider_name: @current_user.name, rider_lat: params[:rider_lat],
                   rider_long: params[:rider_long], taken: true)
       p "**** Job info"
-      # set the distance for the job
-      job_location = Geokit::LatLng.new(@job.latitude, @job.longitude)
-
-      rider_location = params[:rider_lat].to_s + "," + params[:rider_long].to_s
-     
-      job_distance = job_location.distance_to(rider_location)
-
-      # find the stat and update it
-      stat = Stat.find_by(user_id: @current_user.id)
-      p stat
-
-      if (stat.life_t_distance == nil)
-        stat.life_t_distance = 0
-      end
-      
-      stat.life_t_distance = stat.life_t_distance + job_distance
-      p stat.life_t_distance
+      update_stat_distance()
       p "**** Job info"
       # return the whole job object so we can populate the job map screen.
       render json: @job
     end
   end
 
+  def calculate_distance_traveled
+    job_location = Geokit::LatLng.new(@job.latitude, @job.longitude)
+
+    rider_location = params[:rider_lat].to_s + "," + params[:rider_long].to_s
+     
+    return job_location.distance_to(rider_location)
+  end
+
+  def update_stat_distance
+    job_distance = calculate_distance_traveled
+    stat = Stat.find_by(user_id: @current_user.id)
+    p stat
+    stat.update(life_t_distance: job_distance + stat.life_t_distance)
+    p stat.life_t_distance
+  end
+
+  def update_stat_jobs_number
+    stat = Stat.find_by(user_id: @current_user.id)
+    p stat
+    stat.update(life_t_num_jobs: stat.life_t_num_jobs + 1)
+    p stat.life_t_num_jobs
+  end
+  
   def job_cancel
     @job.update(taken: true, rider_complete: false, user_complete: true)
     render json: @job

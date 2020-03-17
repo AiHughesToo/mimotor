@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     
     if @user.save
       if @user.account_type == "rider"
-        @user.stat = Stat.new(user_id: @user.id)
+        @user.stat = Stat.new(user_id: @user.id, life_t_distance: 0, life_t_num_jobs: 0, daily_job_num: 0, daily_distance: 0)
       end
       render json: @user, status: :created, location: @user
     else
