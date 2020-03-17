@@ -112,7 +112,7 @@ class JobsController < ApplicationController
     p stat.life_t_distance + job_distance
     new_distance = stat.life_t_distance + job_distance
     # @current_user.stat.update(life_t_distance: job_distance + stat.life_t_distance)
-    stat.life_t_distance = 1
+    stat.life_t_distance = new_distance
     stat.save
     p @current_user.stat
   end
