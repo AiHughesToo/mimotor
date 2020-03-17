@@ -103,24 +103,25 @@ class JobsController < ApplicationController
     p "job distance " 
     p job_distance
     p "current user stat distance"
-    p @current_user.stat
+    p stat = @current_user.stat
 
     p "current loged distance"
-    p @current_user.stat.life_t_distance
+    p stat.life_t_distance
 
     p "doing the math"
-    p @current_user.stat.life_t_distance + job_distance
-    new_distance = @current_user.stat.life_t_distance + job_distance
+    p stat.life_t_distance + job_distance
+    new_distance = stat.life_t_distance + job_distance
     # @current_user.stat.update(life_t_distance: job_distance + stat.life_t_distance)
-    @current_user.stat.life_t_distance = new_distance
-    @current_user.stat.save
+    stat.life_t_distance = new_distance
+    stat.save
     p @current_user.stat
   end
 
   def update_stat_jobs_number
     stat = Stat.find_by(user_id: @current_user.id)
     p stat
-    stat.life_t_num_jobs = 1
+    
+    stat.life_t_num_jobs = +1 
     stat.save
     p stat.life_t_num_jobs
   end
