@@ -95,7 +95,7 @@ class JobsController < ApplicationController
 
     rider_location = params[:rider_lat].to_s + "," + params[:rider_long].to_s
      
-    return job_location.distance_to(rider_location)
+    return job_location.distance_to(rider_location).round(4)
   end
 
   def update_stat_distance
