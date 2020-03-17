@@ -58,7 +58,9 @@ class JobsController < ApplicationController
   # before action will set the job from the id.
   def job_complete
     if @current_user.account_type === 'rider'
+     update_stat_jobs_number
      @job.update(rider_complete: true, taken: true)
+
       # we need to start adding in the update to the stats.
     else
       @job.update(user_complete: true, taken: true)
@@ -113,7 +115,6 @@ class JobsController < ApplicationController
     @current_user.stat.life_t_distance = new_distance
     @current_user.stat.save
     p @current_user.stat
-  
   end
 
   def update_stat_jobs_number
