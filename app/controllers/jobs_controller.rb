@@ -113,7 +113,7 @@ class JobsController < ApplicationController
     # @current_user.stat.update(life_t_distance: job_distance + stat.life_t_distance)
     @stat.life_t_distance = new_distance
     if jobClosed
-      @stat.life_t_num_jobs = 1 + stat.life_t_num_jobs
+      @stat.life_t_num_jobs = 1 + @stat.life_t_num_jobs
     end
     @stat.save
   end
