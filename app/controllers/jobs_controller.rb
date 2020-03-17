@@ -79,7 +79,9 @@ class JobsController < ApplicationController
       @job.update(rider_id: @current_user.id, rider_name: @current_user.name, rider_lat: params[:rider_lat],
                   rider_long: params[:rider_long], taken: true)
       p "**** Job info"
-      update_stat_distance()
+      if (current_user.account_type == "rider")
+        update_stat_distance()
+      end
       p "**** Job info"
       # return the whole job object so we can populate the job map screen.
       render json: @job
@@ -98,11 +100,14 @@ class JobsController < ApplicationController
     job_distance = calculate_distance_traveled
     p "job distance " 
     p job_distance
-    stat = Stat.find_by(user_id: @current_user.id)
-    p stat
-    stat.update(life_t_distance: job_distance + stat.life_t_distance)
-    stat.save
-    p stat.life_t_distance
+    p "current user stat distance"
+    p @current_user.stat.life_t_distance 
+
+    p "doing the math"
+    p @current_user.stat.life_t_distance + job_distance
+    @current_user.update(stat.life_t_distance: job_distance + stat.life_t_distance)
+    p @current_user
+  
   end
 
   def update_stat_jobs_number
