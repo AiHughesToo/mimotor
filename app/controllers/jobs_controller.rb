@@ -58,7 +58,7 @@ class JobsController < ApplicationController
   # before action will set the job from the id.
   def job_complete
     if @current_user.account_type === 'rider'
-     update_stat_jobs_number
+     update_stat_distance(true)
      @job.update(rider_complete: true, taken: true)
 
       # we need to start adding in the update to the stats.
@@ -80,12 +80,11 @@ class JobsController < ApplicationController
       @job.taken = true
       @job.update(rider_id: @current_user.id, rider_name: @current_user.name, rider_lat: params[:rider_lat],
                   rider_long: params[:rider_long], taken: true)
-      p "**** Job info"
+  
       if (@current_user.account_type == "rider")
-        update_stat_distance()
+        update_stat_distance(false)
       end
-      p "**** Job info"
-      # return the whole job object so we can populate the job map screen.
+
       render json: @job
     end
   end
@@ -98,33 +97,29 @@ class JobsController < ApplicationController
     return job_location.distance_to(rider_location).round(4)
   end
 
-  def update_stat_distance
+  def update_stat_distance(jobClosed)
     job_distance = calculate_distance_traveled
     p "job distance " 
     p job_distance
     p "current user stat distance"
-    p stat = @current_user.stat
+    p @stat = @current_user.stat
 
     p "current loged distance"
-    p stat.life_t_distance
+    p @stat.life_t_distance
 
     p "doing the math"
-    p stat.life_t_distance + job_distance
-    new_distance = stat.life_t_distance + job_distance
+    p @stat.life_t_distance + job_distance
+    new_distance = @stat.life_t_distance + job_distance
     # @current_user.stat.update(life_t_distance: job_distance + stat.life_t_distance)
-    stat.life_t_distance = new_distance
-    stat.save
-    p @current_user.stat
+    @stat.life_t_distance = new_distance
+    if (jobClosed)@stat.life_t_num_jobs = 1 + stat.life_t_num_jobs
+    @stat.save
   end
 
-  def update_stat_jobs_number
-    stat = Stat.find_by(user_id: @current_user.id)
-    p stat
-    
-    stat.life_t_num_jobs = 1 + stat.life_t_num_jobs
-    stat.save
-    p stat.life_t_num_jobs
-  end
+  # def update_stat_jobs_number
+  #   @stat.life_t_num_jobs = 1 + stat.life_t_num_jobs
+  #   @stat.save
+  # end
   
   def job_cancel
     @job.update(taken: true, rider_complete: false, user_complete: true)
