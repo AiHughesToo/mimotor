@@ -103,6 +103,9 @@ class JobsController < ApplicationController
     p "current user stat distance"
     p @current_user.stat
 
+    p "current loged distance"
+    p @current_user.stat.life_t_distance
+
     p "doing the math"
     p @current_user.stat.life_t_distance + job_distance
     @current_user.stat.update(life_t_distance: job_distance + stat.life_t_distance)
