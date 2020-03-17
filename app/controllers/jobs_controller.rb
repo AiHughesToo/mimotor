@@ -99,14 +99,17 @@ class JobsController < ApplicationController
 
   def update_stat_distance(jobClosed)
     job_distance = calculate_distance_traveled
+    @stat = @current_user.stat
+
     new_distance = @stat.life_t_distance + job_distance
-    # @current_user.stat.update(life_t_distance: job_distance + stat.life_t_distance)
+    
     @stat.life_t_distance = @stat.life_t_distance + calculate_distance_traveled
     if jobClosed
       @stat.life_t_num_jobs = 1 + @stat.life_t_num_jobs
     end
     @stat.save
   end
+
   
   def job_cancel
     @job.update(taken: true, rider_complete: false, user_complete: true)
