@@ -79,7 +79,7 @@ class JobsController < ApplicationController
       @job.update(rider_id: @current_user.id, rider_name: @current_user.name, rider_lat: params[:rider_lat],
                   rider_long: params[:rider_long], taken: true)
       p "**** Job info"
-      if (current_user.account_type == "rider")
+      if (@current_user.account_type == "rider")
         update_stat_distance()
       end
       p "**** Job info"
@@ -101,7 +101,7 @@ class JobsController < ApplicationController
     p "job distance " 
     p job_distance
     p "current user stat distance"
-    p @current_user.stat.life_t_distance 
+    p @current_user.stat
 
     p "doing the math"
     p @current_user.stat.life_t_distance + job_distance
