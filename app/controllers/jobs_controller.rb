@@ -58,7 +58,8 @@ class JobsController < ApplicationController
   # before action will set the job from the id.
   def job_complete
     if @current_user.account_type === 'rider'
-     update_stat_distance(true)
+     @jobClosed = true
+     update_stat_distance
      @job.update(rider_complete: true, taken: true)
 
       # we need to start adding in the update to the stats.
@@ -81,8 +82,9 @@ class JobsController < ApplicationController
       @job.update(rider_id: @current_user.id, rider_name: @current_user.name, rider_lat: params[:rider_lat],
                   rider_long: params[:rider_long], taken: true)
   
-      if (@current_user.account_type == "rider")
-        update_stat_distance(false)
+      if @current_user.account_type == "rider"
+        @jobClosed = false
+        update_stat_distance
       end
 
       render json: @job
@@ -97,7 +99,7 @@ class JobsController < ApplicationController
     return job_location.distance_to(rider_location).round(4)
   end
 
-  def update_stat_distance(boolean jobClosed)
+  def update_stat_distance()
     job_distance = calculate_distance_traveled
     p "job distance " 
     p job_distance
@@ -112,7 +114,7 @@ class JobsController < ApplicationController
     new_distance = @stat.life_t_distance + job_distance
     # @current_user.stat.update(life_t_distance: job_distance + stat.life_t_distance)
     @stat.life_t_distance = new_distance
-    if (jobClosed)@stat.life_t_num_jobs = 1 + stat.life_t_num_jobs
+    if (@jobClosed)@stat.life_t_num_jobs = 1 + stat.life_t_num_jobs
     @stat.save
   end
 
