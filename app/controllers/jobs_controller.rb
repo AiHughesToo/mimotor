@@ -96,9 +96,11 @@ class JobsController < ApplicationController
 
   def update_stat_distance
     job_distance = calculate_distance_traveled
+    p "job distance " + job_distance
     stat = Stat.find_by(user_id: @current_user.id)
     p stat
     stat.update(life_t_distance: job_distance + stat.life_t_distance)
+    stat.save
     p stat.life_t_distance
   end
 
@@ -106,6 +108,7 @@ class JobsController < ApplicationController
     stat = Stat.find_by(user_id: @current_user.id)
     p stat
     stat.update(life_t_num_jobs: stat.life_t_num_jobs + 1)
+    stat.save
     p stat.life_t_num_jobs
   end
   
