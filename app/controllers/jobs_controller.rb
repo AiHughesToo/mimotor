@@ -58,7 +58,7 @@ class JobsController < ApplicationController
   # before action will set the job from the id.
   def job_complete
     if @current_user.account_type === 'rider'
-    #  update_stat_distance(true)
+     update_stat_distance(true)
      @job.update(rider_complete: true, taken: true)
 
       # we need to start adding in the update to the stats.
@@ -82,7 +82,7 @@ class JobsController < ApplicationController
                   rider_long: params[:rider_long], taken: true)
   
       if (@current_user.account_type == "rider")
-        # update_stat_distance(false)
+        update_stat_distance(false)
       end
 
       render json: @job
@@ -97,24 +97,24 @@ class JobsController < ApplicationController
     return job_location.distance_to(rider_location).round(4)
   end
 
-  # def update_stat_distance(jobClosed)
-  #   job_distance = calculate_distance_traveled
-  #   p "job distance " 
-  #   p job_distance
-  #   p "current user stat distance"
-  #   p @stat = @current_user.stat
+  def update_stat_distance(boolean jobClosed)
+    job_distance = calculate_distance_traveled
+    p "job distance " 
+    p job_distance
+    p "current user stat distance"
+    p @stat = @current_user.stat
 
-  #   p "current loged distance"
-  #   p @stat.life_t_distance
+    p "current loged distance"
+    p @stat.life_t_distance
 
-  #   p "doing the math"
-  #   p @stat.life_t_distance + job_distance
-  #   new_distance = @stat.life_t_distance + job_distance
-  #   # @current_user.stat.update(life_t_distance: job_distance + stat.life_t_distance)
-  #   @stat.life_t_distance = new_distance
-  #   if (jobClosed)@stat.life_t_num_jobs = 1 + stat.life_t_num_jobs
-  #   @stat.save
-  # end
+    p "doing the math"
+    p @stat.life_t_distance + job_distance
+    new_distance = @stat.life_t_distance + job_distance
+    # @current_user.stat.update(life_t_distance: job_distance + stat.life_t_distance)
+    @stat.life_t_distance = new_distance
+    if (jobClosed)@stat.life_t_num_jobs = 1 + stat.life_t_num_jobs
+    @stat.save
+  end
 
   # def update_stat_jobs_number
   #   @stat.life_t_num_jobs = 1 + stat.life_t_num_jobs
