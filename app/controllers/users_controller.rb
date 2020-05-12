@@ -58,7 +58,8 @@ class UsersController < ApplicationController
   end
 
   def render_error
-    render json: error: "cant find user", status: :unprocessable_entity
+    render json: { errors: 'That Record does not exist.' }, status: :unprocessable_entity
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
