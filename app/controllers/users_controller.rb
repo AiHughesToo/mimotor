@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :authenticate_token!, except: [:create, :reset_password]
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_error
 
   # GET /users
   def index
@@ -29,9 +30,6 @@ class UsersController < ApplicationController
 
   def reset_password
     user = User.find_by_email(user_params[:email])
-    if(!user)
-        render json: @user.errors, status: :unprocessable_entity
-    end
 
     rp_token = Devise.token_generator.generate(User, :reset_password_token)
 
@@ -41,7 +39,7 @@ class UsersController < ApplicationController
     if(user.save)
       UserMailer.reset_password_email(user, rp_token[0]).deliver_now
      else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: user.errors, status: :unprocessable_entity
     end
   end
 
@@ -58,6 +56,9 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
   end
+
+  def render_error
+    render json: error: "cant find user", status: :unprocessable_entity
 
   private
     # Use callbacks to share common setup or constraints between actions.
