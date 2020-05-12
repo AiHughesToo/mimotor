@@ -38,6 +38,7 @@ class UsersController < ApplicationController
 
     if(user.save)
       UserMailer.reset_password_email(user, rp_token[0]).deliver_now
+      render json: { message: 'success' }
      else
       render json: { errors: 'That Record does not exist.' }, status: :unprocessable_entity
     end
