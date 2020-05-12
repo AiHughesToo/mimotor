@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end 
 
   def reset_password
-    user = User.find_by_email(user_params[:email])
+    user = User.find_by_email!(user_params[:email])
 
     rp_token = Devise.token_generator.generate(User, :reset_password_token)
 
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     if(user.save)
       UserMailer.reset_password_email(user, rp_token[0]).deliver_now
      else
-      render json: user.errors, status: :unprocessable_entity
+      render json: { errors: 'That Record does not exist.' }, status: :unprocessable_entity
     end
   end
 
