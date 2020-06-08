@@ -13,6 +13,12 @@ class StatsController < ApplicationController
     render json: @stat
   end
 
+  # GET/stats/id
+  def get_stats_by_user
+    @stat = Stat.find(params[:user_id])
+    render json: @stat
+  end
+
   # POST /stats
   def create
     @stat = Stat.new(stat_params)
