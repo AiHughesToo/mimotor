@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   #users
   post 'user' => 'users#create'
 
+  #stats
+  get 'stat/:user_id' => 'stats#get_stats_by_user'
+
   #password
   post 'reset_password' => 'users#reset_password'
   post 'set_pass' =>'password#set_new_password'
