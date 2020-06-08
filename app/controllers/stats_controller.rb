@@ -1,5 +1,6 @@
 class StatsController < ApplicationController
   before_action :set_stat, only: [:show, :update, :destroy]
+  before_action :authenticate_token!, only [:get_stat_by_user]
 
   # GET /stats
   def index
