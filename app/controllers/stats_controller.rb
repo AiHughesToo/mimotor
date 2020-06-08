@@ -14,11 +14,9 @@ class StatsController < ApplicationController
     render json: @stat
   end
 
-  # GET/stats/id
+  # GET/my_stats
   def get_stats_by_user
-    @stat = Stat.find_by_user_id!(params[:user_id])
-    p "*************"
-    p @current_user
+    @stat = Stat.find_by_user_id!(@current_user.id)
     render json: @stat
   end
 

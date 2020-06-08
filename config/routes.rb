@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post 'user' => 'users#create'
 
   #stats
-  get 'stat/:user_id' => 'stats#get_stats_by_user'
+  get 'mystats' => 'stats#get_stats_by_user'
 
   #password
   post 'reset_password' => 'users#reset_password'
