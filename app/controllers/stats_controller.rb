@@ -1,6 +1,6 @@
 class StatsController < ApplicationController
   before_action :set_stat, only: [:show, :update, :destroy]
-  before_action :authenticate_token!, except: [:get_stats_by_user, :create]
+  before_action :authenticate_token!, except: [:update, :create]
 
   # GET /stats
   def index
